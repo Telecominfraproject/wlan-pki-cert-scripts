@@ -15,6 +15,6 @@ jobs:
           submodules: true
       - name: Validate shell scripts
         run: |
-          for f in `find . -name "*sh"; do
+          for f in `find . -name "*sh"`; do
             shellcheck $f
           done
