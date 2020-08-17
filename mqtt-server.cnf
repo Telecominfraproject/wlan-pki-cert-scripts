@@ -27,7 +27,7 @@ organizationName            = Organization Name (eg, company)
 organizationName_default    = ConnectUs Technologies
 
 commonName           = Common Name (e.g. server FQDN or YOUR name)
-commonName_default   = opensync-mqtt-broker.zone1.lab.wlan.tip.build
+commonName_default   = opensync-mqtt-broker.testdeployment.lab.wlan.tip.build
 
 emailAddress         = Email Address
 emailAddress_default = test@example.com

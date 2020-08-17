@@ -46,10 +46,9 @@ nsComment            = "OpenSSL Generated Server Certificate"
 ####################################################################
 [ alternate_names ]
 
-DNS.1  = opensync-redirector.zone1.lab.wlan.tip.build
-DNS.2  = opensync-controller.zone1.lab.wlan.tip.build
+DNS.1  = opensync-redirector.testdeployment.lab.wlan.tip.build
+DNS.2  = opensync-controller.testdeployment.lab.wlan.tip.build
 DNS.3  = tip-wlan-postgresql
-DNS.4  = ftp.example.com
 
 # IPv4 localhost
 IP.1     = 127.0.0.1
