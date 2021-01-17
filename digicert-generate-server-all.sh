@@ -57,7 +57,7 @@ echo ====================================================
 echo Creating Client-side truststore
 echo This truststore will trust all certificates issued
 echo by TIPs DigiCert CA
-keytool -import -trustcacerts -alias clientqrcode -file cacert.pem -keystore client_keystore.jks -srcstorepass mypassword -deststorepass mypassword -deststoretype JKS -noprompt
+./package-client-cert.sh cacert.pem
 
 echo ====================================================
 echo All Done
