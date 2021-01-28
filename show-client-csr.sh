@@ -1,3 +1,3 @@
 #!/bin/sh
-openssl req -text -noout -verify -in clientcert.csr
+openssl req -text -noout -verify -in csr/clientcert.csr
 

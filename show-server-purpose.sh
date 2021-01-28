@@ -1,3 +1,3 @@
 #!/bin/sh
-openssl x509 -purpose -in servercert.pem -inform PEM -noout
+openssl x509 -purpose -in generated/servercert.pem -inform PEM -noout
 

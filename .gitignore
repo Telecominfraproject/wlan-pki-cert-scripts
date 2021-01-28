@@ -6,3 +6,4 @@
 *.bak
 testCA/**
 client_deviceid.txt
+local-generated

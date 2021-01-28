@@ -21,10 +21,10 @@ then
 fi
 
 # Generate certificate request
-openssl req -batch -config openssl-client.cnf -newkey rsa:2048 -sha256 -out "ap_keys/$inventoryId-cert.csr" -keyout "ap_keys/$inventoryId-key.pem" -subj "/C=CA/ST=Ontario/L=Ottawa/O=ConnectUs Technologies/CN=$inventoryId" -outform PEM -nodes
+openssl req -batch -config configs/openssl-client.cnf -newkey rsa:2048 -sha256 -out "ap_keys/csr/$inventoryId-cert.csr" -keyout "ap_keys/$inventoryId-key.pem" -subj "/C=CA/ST=Ontario/L=Ottawa/O=ConnectUs Technologies/CN=$inventoryId" -outform PEM -nodes
 
 # Sign certificate request
-openssl ca -batch -key mypassword -config openssl-ca.cnf -policy signing_policy -extensions signing_req_client -out "ap_keys/$inventoryId-cert.pem" -infiles "ap_keys/$inventoryId-cert.csr"
+openssl ca -batch -key mypassword -config configs/openssl-ca.cnf -policy signing_policy -extensions signing_req_client -out "ap_keys/$inventoryId-cert.pem" -infiles "ap_keys/csr/$inventoryId-cert.csr"
 
 # Create unprotected client key
 openssl rsa -passin pass:mypassword -in "ap_keys/$inventoryId-key.pem" -out "ap_keys/$inventoryId-key_dec.pem"

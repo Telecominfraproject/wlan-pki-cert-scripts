@@ -1,5 +1,4 @@
 #!/bin/sh
-openssl ca -batch -key mypassword -config openssl-ca.cnf -policy signing_policy -extensions signing_req_client -out postgresclientcert.pem -infiles postgresclientcert.csr
+openssl ca -batch -key mypassword -config configs/openssl-ca.cnf -policy signing_policy -extensions signing_req_client -out generated/postgresclientcert.pem -infiles csr/postgresclientcert.csr
 
-rm postgresclientcert.csr
-
+rm csr/postgresclientcert.csr
