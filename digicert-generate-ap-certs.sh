@@ -9,6 +9,10 @@ if [ $# -lt 3 ]; then
     exit 1
 fi
 
+CNF_DIR="configs"
+CSR_DIR="csr"
+GENERATED_DIR="generated"
+
 manufacturer="$1"
 mac="$2"
 redirector="$3"
@@ -31,8 +35,8 @@ source "$DIR/digicert-library.sh"
 
 echo ====================================================
 echo Creating Client Certificate signed by DigiCert
-./create-client-cert-request.sh "digicert-openssl-client.cnf"
-request_certificate "clientcert.csr" "clientcert.pem" "$mac" "$CLIENT_ENROLLMENT_PROFILE_ID" "$extra_ap_params"
+./create-client-cert-request.sh "$CNF_DIR/digicert-openssl-client.cnf"
+request_certificate "$CSR_DIR/clientcert.csr" "$GENERATED_DIR/clientcert.pem" "$mac" "$CLIENT_ENROLLMENT_PROFILE_ID" "$extra_ap_params"
 extract_single_cert "clientcert" "client_cacert"
 ./decrypt-client-key.sh
 

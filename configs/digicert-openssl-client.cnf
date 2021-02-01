@@ -7,7 +7,7 @@ output_password = mypassword
 ####################################################################
 [ req ]
 default_bits       = 2048
-default_keyfile    = clientkey.pem
+default_keyfile    = generated/clientkey.pem
 distinguished_name = client_distinguished_name
 req_extensions     = client_req_extensions
 string_mask        = utf8only

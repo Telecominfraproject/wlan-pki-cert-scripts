@@ -15,8 +15,8 @@ echo ====================================================
 echo Copy generated AP certificates to the device
 echo IMPORTANT: this script is naive and assumes you can
 echo            connect to the AP with ssh/scp
-scp cacert.pem root@${ap_host}:/usr/opensync/certs/ca.pem
-scp clientcert.pem root@${ap_host}:/usr/opensync/certs/client.pem
-scp clientkey_dec.pem root@${ap_host}:/usr/opensync/certs/client_dec.key
-scp client_deviceid.txt root@${ap_host}:/usr/opensync/certs/deviceid.txt
+scp generated/cacert.pem root@${ap_host}:/usr/opensync/certs/ca.pem
+scp generated/clientcert.pem root@${ap_host}:/usr/opensync/certs/client.pem
+scp generated/clientkey_dec.pem root@${ap_host}:/usr/opensync/certs/client_dec.key
+scp generated/client_deviceid.txt root@${ap_host}:/usr/opensync/certs/deviceid.txt
 

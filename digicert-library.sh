@@ -38,7 +38,7 @@ EOF
     --header "x-api-key: $DIGICERT_API_KEY" \
     --header "Content-Type: application/json" \
     --data-raw "$request")
- 
+
   echo $response | tr '\r\n' ' ' | jq --raw-output .pem | awk '{gsub(/\\n/,"\n")}1' > $cert_file
 }
 
@@ -46,9 +46,9 @@ function extract_single_cert() {
   local fullchain_file_name=$1
   local cacert_file_name=$2
 
-  cat ${fullchain_file_name}.pem | awk 'split_after==1{n++;split_after=0} /-----END CERTIFICATE-----/ {split_after=1} {print > "cert" n ".pem"}'
-  cat cert.pem > ${fullchain_file_name}.pem
-  cat cert1.pem cert2.pem > ${cacert_file_name}.pem
+  cat generated/${fullchain_file_name}.pem | awk 'split_after==1{n++;split_after=0} /-----END CERTIFICATE-----/ {split_after=1} {print > "cert" n ".pem"}'
+  cat cert.pem > generated/${fullchain_file_name}.pem
+  cat cert1.pem cert2.pem > generated/${cacert_file_name}.pem
   rm -rf cert*.pem
 }
 
