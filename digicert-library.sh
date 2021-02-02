@@ -5,6 +5,9 @@
 SERVER_ENROLLMENT_PROFILE_ID='IOT_f6305673-f3e0-4cc7-98dd-7b510bc6b6ca'
 CLIENT_ENROLLMENT_PROFILE_ID='IOT_9f2b75b7-7816-4640-afbd-0c6e6e42cbb0'
 SERVER_WITH_CLIENT_ENROLLMENT_PROFILE_ID='IOT_1da99ee7-a886-4471-8c6f-56aa0cf21bf6'
+CNF_DIR="configs"
+CSR_DIR="csr"
+GENERATED_DIR="generated"
 
 function new_uuid() {
   cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1

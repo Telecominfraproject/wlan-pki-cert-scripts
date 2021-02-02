@@ -5,10 +5,6 @@ DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 source "$DIR/digicert-library.sh"
 
-CNF_DIR="configs"
-CSR_DIR="csr"
-GENERATED_DIR="generated"
-
 set -e
 
 echo ====================================================

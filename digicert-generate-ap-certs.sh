@@ -9,10 +9,6 @@ if [ $# -lt 3 ]; then
     exit 1
 fi
 
-CNF_DIR="configs"
-CSR_DIR="csr"
-GENERATED_DIR="generated"
-
 manufacturer="$1"
 mac="$2"
 redirector="$3"
@@ -42,19 +38,19 @@ extract_single_cert "clientcert" "client_cacert"
 
 echo ====================================================
 echo Verifying Client Certificate
-./verify-client.sh clientcert.pem client_cacert.pem
+./verify-client.sh $GENERATED_DIR/clientcert.pem $GENERATED_DIR/client_cacert.pem
 
 #echo ====================================================
 #echo Packaging Client Certificates
 #echo This will import the newly generated AP certificate into client_keystore.jks file
-#./package-client-cert.sh client_cacert.pem
+#./package-client-cert.sh $GENERATED_DIR/client_cacert.pem
 
 echo ====================================================
 echo Query DigiCert API to get and save the Device ID
-get-device-id "$mac" "client_deviceid.txt"
+get-device-id "$mac" "$GENERATED_DIR/client_deviceid.txt"
 
 echo ====================================================
 echo Verify we can query device info using the generated
 echo device key and certificate
-curl -X GET https://clientauth.demo.one.digicert.com/iot/api/v2/device/`cat client_deviceid.txt` --key clientkey_dec.pem --cert clientcert.pem
+curl -X GET https://clientauth.demo.one.digicert.com/iot/api/v2/device/`cat $GENERATED_DIR/client_deviceid.txt` --key $GENERATED_DIR/clientkey_dec.pem --cert $GENERATED_DIR/clientcert.pem
 
