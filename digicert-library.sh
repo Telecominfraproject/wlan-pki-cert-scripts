@@ -2,9 +2,9 @@
 
 : "${DIGICERT_API_KEY:?DIGICERT_API_KEY env variable is not set or empty}"
 
-export SERVER_ENROLLMENT_PROFILE_ID='IOT_f6305673-f3e0-4cc7-98dd-7b510bc6b6ca'
-export CLIENT_ENROLLMENT_PROFILE_ID='IOT_9f2b75b7-7816-4640-afbd-0c6e6e42cbb0'
-export SERVER_WITH_CLIENT_ENROLLMENT_PROFILE_ID='IOT_1da99ee7-a886-4471-8c6f-56aa0cf21bf6'
+export SERVER_ENROLLMENT_PROFILE_ID='IOT_5e405ae7-bdbd-46f2-accd-1667d581dfe7'
+export CLIENT_ENROLLMENT_PROFILE_ID='IOT_abf4d6c6-2575-462a-9338-f902b42a73d2'
+export SERVER_WITH_CLIENT_ENROLLMENT_PROFILE_ID=$SERVER_ENROLLMENT_PROFILE_ID # TODO: create profile with client and server certs
 export CNF_DIR="configs"
 export CSR_DIR="csr"
 export GENERATED_DIR="generated"
@@ -37,6 +37,10 @@ function request_certificate() {
   "enrollment_profile_id": "$enrollment_profile",
   "device_attributes": [
     {
+      "id": "819f33c1-f717-4efe-9f31-78222de5e37a",
+      "value": "TIP Open Wi-Fi"
+    },
+    {
       "id": "DEVICE_IDENTIFIER",
       "value": "$device_identifier"
     }$device_params
@@ -47,7 +51,7 @@ EOF
 
   response=$(curl \
     --silent \
-    --request POST 'https://demo.one.digicert.com/iot/api/v1/certificate' \
+    --request POST 'https://one.digicert.com/iot/api/v1/certificate' \
     --header "x-api-key: $DIGICERT_API_KEY" \
     --header "Content-Type: application/json" \
     --data-raw "$request")
@@ -75,7 +79,7 @@ function get-device-id() {
 
   response=$(curl \
     --silent \
-    --request GET "https://demo.one.digicert.com/iot/api/v2/device?limit=1&device_identifier=${device_identifier}&updated_from=$today" \
+    --request GET "https://one.digicert.com/iot/api/v2/device?limit=1&device_identifier=${device_identifier}&updated_from=$today" \
     --header "x-api-key: $DIGICERT_API_KEY")
 
   check_command jq

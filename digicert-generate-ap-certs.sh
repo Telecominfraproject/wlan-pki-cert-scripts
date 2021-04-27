@@ -53,5 +53,5 @@ echo ====================================================
 echo Verify we can query device info using the generated
 echo device key and certificate
 device_id=$(cat "$GENERATED_DIR/client_deviceid.txt")
-curl -X GET "https://clientauth.demo.one.digicert.com/iot/api/v2/device/$device_id" --key "$GENERATED_DIR/clientkey_dec.pem" --cert "$GENERATED_DIR/clientcert.pem"
+curl -X GET "https://clientauth.one.digicert.com/iot/api/v2/device/$device_id" --key "$GENERATED_DIR/clientkey_dec.pem" --cert "$GENERATED_DIR/clientcert.pem"
 
