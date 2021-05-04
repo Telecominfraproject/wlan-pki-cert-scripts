@@ -34,7 +34,7 @@ function get_enrollment_profile_field_id() {
 # normalizes a MAC address by removing all non alphanumeric and uppercasing all characters
 function normalize_mac() {
   local mac=$1
-  echo $mac | tr -d ":" | tr -d "-" |  tr "a-z" "A-Z"
+  echo "$mac" | tr -d ":" | tr -d "-" |  tr "[:lower:]" "[:upper:]"
 }
 
 function get_certificate_by_device_identifier() {
@@ -45,7 +45,8 @@ function get_certificate_by_device_identifier() {
 # checks whether an issued certificate already exists for the given device identifier
 function issued_certificate_exists() {
   local device_identifier=$1
-  local certificate_id=$(get_certificate_by_device_identifier $device_identifier)
+  local certificate_id
+  certificate_id=$(get_certificate_by_device_identifier "$device_identifier")
 
   if [ "$certificate_id" = "null" ]
   then
@@ -61,7 +62,8 @@ function revoke_certificate() {
 
   echo "revoking certificate for device $device_identifier"
 
-  local certificate_id=$(get_certificate_by_device_identifier $device_identifier)
+  local certificate_id
+  certificate_id=$(get_certificate_by_device_identifier "$device_identifier")
 
   if [ "$certificate_id" = "null" ]
   then
@@ -80,9 +82,10 @@ function revoke_certificate() {
 }
 
 function request_server_certificate() {
-  local device_params=",
+  local device_params
+  device_params=",
     {
-      \"id\": \"$(get_enrollment_profile_field_id $SERVER_ENROLLMENT_PROFILE_ID Operator)\",
+      \"id\": \"$(get_enrollment_profile_field_id "$SERVER_ENROLLMENT_PROFILE_ID" Operator)\",
       \"value\": \"$OPERATOR\"
     }
 "

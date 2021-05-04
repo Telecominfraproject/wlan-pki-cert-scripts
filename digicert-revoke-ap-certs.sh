@@ -15,6 +15,6 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-mac="$(normalize_mac $1)"
+mac="$(normalize_mac "$1")"
 
 revoke_certificate "$mac"

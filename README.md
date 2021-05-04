@@ -124,7 +124,7 @@ commonName_default   = mqtt-broker.openwifi.tip.build
 ...
 ```
 
-Similarly open the _configs/configs/digicert-openssl-server.cnf_ file and add your domain(s) to the altername names.
+Similarly open the _configs/configs/digicert-openssl-server.cnf_ file and add your domain(s) to the alternate names.
 
 ```
 ...

@@ -20,16 +20,16 @@ source "$DIR/digicert-library.sh"
 
 
 manufacturer="$1"
-mac="$(normalize_mac $2)"
+mac="$(normalize_mac "$2")"
 redirector="$3"
 
 extra_ap_params=",
     {
-      \"id\": \"$(get_enrollment_profile_field_id $CLIENT_ENROLLMENT_PROFILE_ID Redirector)\",
+      \"id\": \"$(get_enrollment_profile_field_id "$CLIENT_ENROLLMENT_PROFILE_ID" Redirector)\",
       \"value\": \"$redirector\"
     },
     {
-      \"id\": \"$(get_enrollment_profile_field_id $CLIENT_ENROLLMENT_PROFILE_ID Manufacturer)\",
+      \"id\": \"$(get_enrollment_profile_field_id "$CLIENT_ENROLLMENT_PROFILE_ID" Manufacturer)\",
       \"value\": \"$manufacturer\"
     }
 "
@@ -44,7 +44,7 @@ if issued_certificate_exists "$mac"; then
     echo "Certificate for $mac already exists, revoke to recreate"
 else
   echo Creating Client Certificate signed by DigiCert
-  openssl req -batch -config "$CNF_DIR/digicert-openssl-client.cnf" -newkey rsa:2048 -sha256 -out "$CSR_DIR/clientcert.csr" -keyout "$GENERATED_DIR/clientkey.pem" -subj "/C=CA/ST=Ontario/L=Ottawa/O=ConnectUs Technologies/CN=$mac" -outform PEM -nodes
+  openssl req -batch -config "$CNF_DIR/digicert-openssl-client.cnf" -newkey rsa:2048 -sha256 -out "$CSR_DIR/clientcert.csr" -keyout "$GENERATED_DIR/clientkey.pem" -subj "/C=US/ST=/L=/O=Telecom Infra Porject Inc./CN=$mac" -outform PEM -nodes
   request_certificate "$CSR_DIR/clientcert.csr" "$GENERATED_DIR/clientcert.pem" "$mac" "$CLIENT_ENROLLMENT_PROFILE_ID" "$extra_ap_params"
   extract_single_cert "clientcert" "client_cacert"
   ./decrypt-client-key.sh
