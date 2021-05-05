@@ -107,7 +107,11 @@ The resulting files will be ap_keys/ap-inventory-id_dec.pem and ap_keys/ap-inven
 
 Open the file _digicert-config.sh_ and adjust the values according to your account.
 
-Additionally make your Digicert API key available through an environment variable called _DIGICERT_API_KEY_.
+Additionally make your Digicert API key available through an environment variable called _DIGICERT_API_KEY_, e.g. by running `export DIGICERT_API_KEY=XXXXXXXXXXXXXXXXX` or using a tool like [direnv](https://direnv.net/).
+
+The scripts use a tool called jq, so please make sure you have it [installed](https://stedolan.github.io/jq/download/).
+
+On MacOS you'll additionally need to install the GNU versions of [awk](https://formulae.brew.sh/formula/gawk) and [sed](https://formulae.brew.sh/formula/gnu-sed).
 
 ### Generate cloud controller certificates
 

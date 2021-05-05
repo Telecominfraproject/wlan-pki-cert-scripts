@@ -23,6 +23,17 @@ function check_command() {
 
 check_command jq
 
+# OS compatibility
+if [ "$(uname)" == "Darwin" ]; then
+  check_command gawk
+  check_command gsed
+  AWK="gawk"
+  SED="gsed"
+else
+  AWK="awk"
+  SED="sed"
+fi
+
 # retrieves an ID of a given field in a given enrollment profile
 function get_enrollment_profile_field_id() {
   local profile_id=$1
@@ -100,7 +111,7 @@ function request_certificate() {
   local enrollment_profile=$4
   local device_params=$5
 
-  csr_text=$(sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g' "$csr_file")
+  csr_text=$("$SED" '$!s/$/\\n/' "$csr_file" | tr -d '\n')
 
   request=$(cat <<EOF
 {
@@ -123,14 +134,14 @@ EOF
     --header "Content-Type: application/json" \
     --data-raw "$request" | tr '\r\n' ' ' | jq --raw-output .pem)
 
-  echo "$cert" | awk '{gsub(/\\n/,"\n")}1' > "$cert_file"
+  echo "$cert" | "$AWK" '{gsub(/\\n/,"\n")}1' > "$cert_file"
 }
 
 function extract_single_cert() {
   local fullchain_file_name=$1
   local cacert_file_name=$2
 
-  awk 'split_after==1{n++;split_after=0} /-----END CERTIFICATE-----/ {split_after=1} {print > "cert" n ".pem"}' < "$GENERATED_DIR/${fullchain_file_name}.pem"
+  "$AWK" 'split_after==1{n++;split_after=0} /-----END CERTIFICATE-----/ {split_after=1} {print > "cert" n ".pem"}' < "$GENERATED_DIR/${fullchain_file_name}.pem"
   cat cert.pem > "$GENERATED_DIR/${fullchain_file_name}.pem"
   cat cert1.pem cert2.pem > "$GENERATED_DIR/${cacert_file_name}.pem"
   rm -rf cert*.pem
