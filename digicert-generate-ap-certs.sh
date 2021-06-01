@@ -66,7 +66,7 @@ curl -X GET "https://clientauth.one.digicert.com/iot/api/v2/device/$device_id" -
 
 echo ====================================================
 echo Packaging Client Certificates
-cp "$GENERATED_DIR/cacert.pem" "$GENERATED_DIR/ca.pem"
+cp "$GENERATED_DIR/client_cacert.pem" "$GENERATED_DIR/ca.pem"
 cp "$GENERATED_DIR/clientcert.pem" "$GENERATED_DIR/client.pem"
 cp "$GENERATED_DIR/clientkey_dec.pem" "$GENERATED_DIR/client_dec.key"
 cd "$GENERATED_DIR"; tar -czf "$mac.tar.gz" "ca.pem" "client.pem" "client_dec.key" "client_deviceid.txt"; cd ..
